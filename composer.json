@@ -1,0 +1,10 @@
+{
+    "name": "SKSI Framework",
+    "type": "MVC Framework",
+    "description": "Stupid Idiot micro framework",
+    "keywords": ["mvc"],
+    "homepage": "http://sktechblog.com",
+    "require": {
+        "twig/twig": "^1.34"
+    }
+}
