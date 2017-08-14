@@ -1,4 +1,4 @@
-# SKSI MVC FRAMEWORK
+# SKSI MVC FRAMEWORK 1.0.0
 Just another Simple, Micro, Lightweight MVC framework.
 
 # Introduction
