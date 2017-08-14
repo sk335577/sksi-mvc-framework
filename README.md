@@ -17,4 +17,3 @@ Just another Simple, Micro, Lightweight MVC framework.
 
 # Developer
 [![](http://sktechblog.com/sktechblog335577/wp-content/uploads/2017/08/sktechblog-logo-small.png)](http://sktechblog.com)
-![](http://sktechblog.com/sktechblog335577/wp-content/uploads/2017/08/sktechblog-logo-small.png)
