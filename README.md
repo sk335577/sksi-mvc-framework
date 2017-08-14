@@ -16,5 +16,5 @@ Just another Simple, Micro, Lightweight MVC framework.
 - PHP >=5.5 
 
 # Developer
-[Links](http://sktechblog.com)
+[![](http://sktechblog.com/sktechblog335577/wp-content/uploads/2017/08/sktechblog-logo-small.png)](http://sktechblog.com)
 ![](http://sktechblog.com/sktechblog335577/wp-content/uploads/2017/08/sktechblog-logo-small.png)
