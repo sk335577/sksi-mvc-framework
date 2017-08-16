@@ -2,18 +2,20 @@
 
 return array_merge(
         [
+    'title' => 'SK Stupid Idior MVC',
     'paths' => [
         'views' => [
-            'default' => SKSI_ROOT . '/app/src/views',
-            'app' => SKSI_ROOT . '/app/src/views/application',
-            'errors' => SKSI_ROOT . '/app/src/views/errors',
-            'layouts' => SKSI_ROOT . '/app/src/views/layouts'
+            'default' => SKSI_ROOT . '/app/src/views/default',
+            'backend' => SKSI_ROOT . '/app/src/views/backend',
+//            'app' => SKSI_ROOT . '/app/src/views/application',
+//            'errors' => SKSI_ROOT . '/app/src/views/errors',
+//            'layouts' => SKSI_ROOT . '/app/src/views/layouts'
         ],
     ],
     //Languages Starts Here
     'languages' => [
-        'installed' => ['en', 'fr'],
         'default' => 'en',
+        'path' => SKSI_ROOT . '/app/lang'
     ],
     //Languages Ends Here
     'timezone' => 'Asia/kolkata'

@@ -2,41 +2,29 @@
 
 namespace SKSI\Lib\Framework;
 
-use SKSI\Lib\Framework\Services;
+use SKSI\Lib\Framework\Application;
 use SKSI\Lib\Framework\View;
 
 abstract class Controller {
 
-    private $params;
-    protected $config;
-    protected $services;
+    protected $params;
+    protected $app;
 
-    public function __construct($config, Services $services) {
+    public function __construct(Application $app) {
+        $this->view = new View($app->configs()['paths']['views']);
+        $this->view->setTranslator($app->services()->get('translator'));
+    }
 
-        $this->setServices($services);
-        $this->setConfig($config);
-        $this->view = new View($this->config['paths']['views']);
-        $this->view->setTranslator($this->services()->get('translator'));
+    public function services($service) {
+        return $this->app->services()->get($service);
     }
 
     public function setParams($params) {
         $this->params = $params;
     }
 
-    public function setServices($services) {
-        $this->services = $services;
-    }
-
-    public function services() {
-        return $this->services;
-    }
-
     public function getParams() {
         return $this->params;
-    }
-
-    public function setConfig($config) {
-        $this->config = $config;
     }
 
     public function __call($name, $args) {

@@ -5,6 +5,7 @@
     "keywords": ["mvc"],
     "homepage": "http://sktechblog.com",
     "require": {
-        "twig/twig": "^1.34"
+        "twig/twig": "^1.34",
+        "joshcam/mysqli-database-class": "dev-master"
     }
 }

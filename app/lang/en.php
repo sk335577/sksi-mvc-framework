@@ -1,5 +1,6 @@
 <?php
 
 return [
-    'tranlate'=>'English'
+    'string' => 'Sandeep in English'
 ];
+

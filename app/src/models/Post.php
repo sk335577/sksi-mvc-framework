@@ -1,15 +1,13 @@
 <?php
 
-namespace SKSI\Application\Models;
-use PDO;
-class Post extends \SKSI\Core\Model {
+namespace SKSI\App\Src\Models;
 
-    /**
-     * Get all the posts as an associative array
-     *
-     * @return array
-     */
-    public static function getAll() {
+use PDO;
+use SKSI\Lib\Framework\Model as AbstractModel;
+
+class Post extends AbstractModel {
+
+    public function getAll() {
         $db = static::getDB();
         $statement = $db->query('SELECT * FROM posts');
         return $statement->fetchAll(PDO::FETCH_ASSOC);

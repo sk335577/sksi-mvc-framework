@@ -5,25 +5,16 @@ namespace SKSI\Lib\Framework\Config;
 class Manager {
 
     protected $found = false;
-    protected $currentItem = array();
-    protected $commonSettings = array();
+    protected $currentitem = array();
+    protected static $settings = array();
 
-    public function __construct($path = null, $alias = null) {
-        if (is_null($path)) {
-            throw new \Exception("Path required to load configuration files from");
-        }
-
-        if (!count($this->commonSettings)) {
-            $this->load($path);
-        }
-
-        if ($alias) {
-            AliasFacade::setInstance($this);
-            class_alias(__NAMESPACE__ . '\AliasFacade', $alias);
+    public static function init($settings = array()) {
+        foreach ($settings as $key => $value) {
+            self::$settings[$key] = $value;
         }
     }
 
-    public function __call($method, $params = null) {
+    public static function __callStatic($method, $params = null) {
         try {
             $methodPrefix = substr($method, 0, 3);
             $methodName = substr($method, 3);
@@ -38,7 +29,7 @@ class Manager {
 
                 $key = strtolower($methodName) . '.' . $params[0];
                 $value = $params[1];
-                $this->array_set($this->commonSettings, $key, $value);
+                self::array_set(self::$settings, $key, $value);
                 return $this;
             }
 
@@ -51,16 +42,16 @@ class Manager {
                 if ($params == null) {
                     $key = strtolower($methodName);
                     if ($key === 'all')
-                        $result = $this->commonSettings;
+                        $result = self::$settings;
                     else
-                        $result = $this->array_get($this->commonSettings, $key);
+                        $result = self::array_get(self::$settings, $key);
                 }
                 else {
                     $key = strtolower($methodName);
                     $key .= isset($params[0]) ? '.' . $params[0] : '';
 
                     // If a closure is given in 2nd argumet with getMethod(), call it
-                    $result = $this->array_get($this->commonSettings, $key, $default);
+                    $result = self::array_get(self::$settings, $key, $default);
                     if (isset($params[1]) && is_callable($params[1])) {
                         return $params[1]($result);
                     }
@@ -75,13 +66,7 @@ class Manager {
         }
     }
 
-    public function load(array $settings) {
-        foreach ($settings as $key => $value) {
-            $this->commonSettings[$key] = $value;
-        }
-    }
-
-    private function array_get($array, $key, $default = null) {
+    private static function array_get($array, $key, $default = null) {
         if (is_null($key))
             return $array;
         foreach (explode('.', $key) as $segment) {
@@ -93,7 +78,7 @@ class Manager {
         return $array;
     }
 
-    private function array_set(&$array, $key, $value) {
+    private static function array_set(&$array, $key, $value) {
         if (is_null($key))
             return $array = $value;
 
@@ -108,10 +93,10 @@ class Manager {
         $array[array_shift($keys)] = $value;
     }
 
-    public function find($item = null, $array = null) {
+    public static function find($item = null, $array = null) {
         if (is_null($item))
             return null;
-        //$this->found = false;
+        //self::found = false;
 
         if (strpos($item, '.')) {
             $arr = explode('.', $item);
@@ -121,39 +106,39 @@ class Manager {
             else {
                 $itemToSearch = $arr[1];
             }
-            return $this->findItemIn($itemToSearch, $arr[0]);
+            return self::findItemIn($itemToSearch, $arr[0]);
         }
         else {
-            $array = !is_null($array) ? $array : $this->commonSettings;
+            $array = !is_null($array) ? $array : self::$settings;
             foreach ($array as $key => $value) {
                 if ($key === $item) {
-                    $this->currentItem = $value;
-                    $this->found = true;
+                    self::$currentitem = $value;
+                    self::$found = true;
                     break;
                 }
                 else {
                     if (is_array($value)) {
-                        $this->find($item, $value);
+                        self::find($item, $value);
                     }
                 }
             }
         }
 
-        if (!$this->found) {
+        if (!self::found) {
             return false;
         }
-        return $this->currentItem;
+        return self::$currentitem;
     }
 
-    private function findItemIn($item, $key) {
-        $array = $this->find($key);
+    private static function findItemIn($item, $key) {
+        $array = self::find($key);
         if ($array)
-            return $this->array_get($array, $item);
+            return self::array_get($array, $item);
         return false;
     }
 
-    public function isExist($key = null) {
-        return $key = is_null($key) ? false : ($this->find($key) ? true : false);
+    public static function isExist($key = null) {
+        return $key = is_null($key) ? false : (self::find($key) ? true : false);
     }
 
 }

@@ -1,5 +1,7 @@
 <?php
 
 return [
-    'tranlate' => 'French'
+    'string' => 'Sandeep in French'
 ];
+
+

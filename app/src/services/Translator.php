@@ -4,15 +4,31 @@ namespace SKSI\App\Src\Services;
 
 class Translator {
 
-    private static $_instance = null;
-    private $cached = array();
+    public $lang = null;
+    public $translations = array();
 
-    public function translate($string, $default = '') {
-        if(isset($cached))
-        {
-            
+    public function init($config, $route_params) {
+        if (isset($route_params['lang'])) {
+            $this->lang = $route_params['lang'];
         }
-        return "xxx11";
+        else {
+            $this->lang = $config['languages']['default'];
+        }
+        $this->translations = include_once $config['languages']['path'] . '/' . $this->lang . '.php';
+    }
+
+    public function translate($string, $default = null) {
+        if (isset($this->translations[$string])) {
+            return $this->translations[$string];
+        }
+        else {
+            if (!is_null($default)) {
+                return $default;
+            }
+            else {
+                return $string;
+            }
+        }
     }
 
 }

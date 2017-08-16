@@ -5,9 +5,21 @@
 return[
     'services' =>
     [
-////        'database' => 'SKSI\App\Src\Services\Database::init', //singelton class,connect and return an object of database which can be used anywhere
-////        'session' => 'SKSI\App\Src\Services\Session::init', //initialize a session
-//            'translator' => 'SKSI\App\Src\Services\Translator', //initialize a session
+//        'config' => [
+//            'call' => '\SKSI\App\Src\Services\Config::init',
+//            'params' => [
+//                'config' => SKSI_ROOT . '/app/config/application.php',
+//            ]
+//        ],
+//        'database' => [
+//            'call' => '\SKSI\App\Src\Services\Database',
+//            'params' => [
+//                'host' => \SKSI\Lib\Framework\Config\Manager::getDatabase('drivers.mysql.host'),
+//                'user' => \SKSI\Lib\Framework\Config\Manager::getDatabase('drivers.mysql.user'),
+//                'password' => \SKSI\Lib\Framework\Config\Manager::getDatabase('drivers.mysql.password'),
+//                'database' => \SKSI\Lib\Framework\Config\Manager::getDatabase('drivers.mysql.database'),
+//            ]
+//        ],
         'translator' => [
             'call' => '\SKSI\App\Src\Services\Translator',
 //            'params' => [

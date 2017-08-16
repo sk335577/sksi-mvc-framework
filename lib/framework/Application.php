@@ -5,20 +5,21 @@ namespace SKSI\Lib\Framework;
 use SKSI\Lib\Framework\Router;
 use SKSI\Lib\Framework\Services;
 use SKSI\Lib\Framework\Events;
+use SKSI\Lib\Framework\Dispatcher;
 
 class Application {
 
-    protected $config;
+    protected $config; //for the framework, we can use config class in application
     protected $router;
-    protected $request;
     protected $services;
     protected $events;
+    protected $dispatcher;
 
     public function __construct($config = array()) {
 
         $this->registerConfig($config);
-
         $this->registerRouter(new Router());
+        $this->registerDispatcher(new Dispatcher());
         $this->registerServices(new Services());
         $this->registerEvents(new Events());
 
@@ -46,43 +47,49 @@ class Application {
 
     public function registerConfig(array $config) {
         $this->config = $config;
-        return $this;
     }
 
     public function registerRouter(Router $router) {
         $this->router = $router;
-        return $this;
     }
 
     public function registerServices(Services $services) {
         $this->services = $services;
-        return $this;
     }
 
     public function registerEvents(Events $events) {
         $this->events = $events;
-        return $this;
     }
 
-    public function getService($name) {
-        return $this->services->get($name);
+    public function registerDispatcher(Dispatcher $dispatcher) {
+        $this->dispatcher = $dispatcher;
+    }
+
+    public function configs() {
+        return $this->config;
     }
 
     public function services() {
         return $this->services;
     }
 
-    public function getConfig() {
-        return $this->config;
+    public function router() {
+        return $this->router;
+    }
+
+    public function events() {
+        return $this->events;
     }
 
     public function run() {
+
+        $this->events->trigger('on.app.run', array('app' => $this));
 
         $this->events->trigger('before.app.route', array('app' => $this));
 
         if ($this->router->route($_SERVER['QUERY_STRING'])) {
             $this->events->trigger('before.app.dispatch', array('app' => $this));
-            $this->router->dispatch($this);
+            $this->dispatcher->dispatch($this);
             $this->events->trigger('after.app.dispatch', array('app' => $this));
         }
         else {

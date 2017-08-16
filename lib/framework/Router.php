@@ -2,7 +2,6 @@
 
 namespace SKSI\Lib\Framework;
 
-use SKSI\Lib\Framework\Application;
 
 class Router {
 
@@ -66,34 +65,6 @@ class Router {
         return $this->params;
     }
 
-    public function dispatch(Application $app) {
-        $controller = $this->params['controller'];
-        $controller = $this->convertToStudlyCaps($controller);
-        $controller = $this->getNamespace() . $controller;
-
-        if (class_exists($controller)) {
-
-            $controller_obj = new $controller($app->getConfig(), $app->services());
-            if (!isset($this->params['action'])) {
-                $this->params['action'] = 'index';
-            }
-
-            $controller_obj->setParams($this->params);
-            $action = $this->params['action']; //get the action to call
-            $action = $this->convertToCamelCase($action);
-
-            if (is_callable(array($controller_obj, $action))) {
-                $controller_obj->$action();
-            }
-            else {
-                throw new \Exception("Method $action (in controller $controller) not found");
-            }
-        }
-        else {
-            throw new \Exception("Controller class $controller not found");
-        }
-    }
-
     public function route($url) {
         $url = $this->removeQueryStringVariables($url);
         if ($this->match($url)) {
@@ -104,13 +75,6 @@ class Router {
         }
     }
 
-    protected function convertToStudlyCaps($str) {
-        return str_replace(' ', '', ucfirst(str_replace('-', ' ', $str)));
-    }
-
-    protected function convertToCamelCase($str) {
-        return lcfirst($this->convertToStudlyCaps($str));
-    }
 
     protected function removeQueryStringVariables($url) {
         if (!empty($url)) {
@@ -125,10 +89,7 @@ class Router {
         return $url;
     }
 
-    protected function getNamespace() {
-        return '\SKSI\App\Src\Controllers\\' . ((array_key_exists('namespace', $this->params)) ? $this->params['namespace'] . '\\' : '');
-    }
-
+  
     protected function filterUrl($url) {
         if (preg_match('/(?<url>.+)\/$/', $url, $matches) === 1) {
             $url = $matches['url'];

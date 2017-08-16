@@ -7,9 +7,10 @@ use \SKSI\Lib\Framework\Controller as AbstractController;
 class Home extends AbstractController {
 
     public function indexAction() {
-        echo "Xx";
-        $this->view->setData(array('xx' => 1));
-        $this->view->renderTemplate();
+        $this->view->setData(
+                array('page_title' => 'Home')
+        );
+        $this->view->renderTemplate('home/index', 'default', 'default');
     }
 
     public function getAction() {
