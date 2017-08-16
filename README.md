@@ -15,7 +15,7 @@ Just another Simple, Micro, Lightweight MVC framework.
 - Simple Array Language Translations: Add any numbers of languages
 - Simple .phtml templating engine, but can be used with any templating engine like twig, symphony, bolt etc
 - Extendable: Can be use to develop large applications
-- A Demo Attached: A portfolio website will be generated
+- A Demo Attached: A portfolio website(with bootstrap css framework) will be generated
 
 # Requires
 - PHP >=5.6
