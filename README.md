@@ -2,7 +2,7 @@
 Just another Simple, Micro, Lightweight MVC framework.
 
 # Introduction
-"SKSI MVC Framework" is a simple php framework which follows MVC design pattern. It can be used to develop small and medium web applications or websites. 
+"SK Stupid Idiot MVC Framework" is a simple php framework which follows MVC design pattern. It can be used to develop small and medium web applications or websites. 
 
 # Features
 - MVC
