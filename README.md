@@ -13,7 +13,7 @@ Just another Simple, Micro, Lightweight MVC framework.
 - Database Utilities: A mysql wrapper library added to generate quick sql queries
 - Configuration Manager: To access configuration from anywhere in project life cycle
 - Simple Array Language Translations: Add any numbers of languages
-- Simple .phtml templating engine, but can be used with any templating engine like twig, symphony, bolt etc
+- Simple .phtml templating engine, but can be used with any templating engine like twig, smarty etc
 - Extendable: Can be use to develop large applications
 - A Demo Attached: A portfolio website(with bootstrap css framework) will be generated
 
