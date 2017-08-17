@@ -16,6 +16,7 @@ Just another Simple, Micro, Lightweight MVC framework.
 - Simple .phtml templating engine, but can be used with any templating engine like twig, smarty etc
 - Extendable: Can be use to develop large applications
 - A Demo Attached: A portfolio website(with bootstrap css framework) will be generated
+- Use any php package from packagist.org by using composer 
 
 # Requires
 - PHP >=5.6
